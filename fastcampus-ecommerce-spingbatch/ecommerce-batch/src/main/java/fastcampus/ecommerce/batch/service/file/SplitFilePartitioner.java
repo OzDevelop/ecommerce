@@ -1,6 +1,5 @@
 package fastcampus.ecommerce.batch.service.file;
 
-
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;

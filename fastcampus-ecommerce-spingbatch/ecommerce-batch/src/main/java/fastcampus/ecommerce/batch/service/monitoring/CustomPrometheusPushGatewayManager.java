@@ -1,4 +1,4 @@
-package fastcampus.ecommerce.batch.sevice.monitoring;
+package fastcampus.ecommerce.batch.service.monitoring;
 
 import io.prometheus.client.CollectorRegistry;
 import io.prometheus.client.exporter.PushGateway;

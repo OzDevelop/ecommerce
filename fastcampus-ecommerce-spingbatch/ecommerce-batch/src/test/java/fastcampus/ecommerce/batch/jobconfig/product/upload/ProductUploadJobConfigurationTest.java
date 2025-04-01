@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import fastcampus.ecommerce.batch.jobconfig.BaseBatchIntegrationTest;
-import fastcampus.ecommerce.batch.sevice.product.ProductService;
+import fastcampus.ecommerce.batch.service.product.ProductService;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import org.springframework.batch.core.JobExecution;

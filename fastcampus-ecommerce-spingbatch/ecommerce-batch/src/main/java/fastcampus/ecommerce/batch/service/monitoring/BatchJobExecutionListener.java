@@ -1,6 +1,5 @@
 package fastcampus.ecommerce.batch.service.monitoring;
 
-import fastcampus.ecommerce.batch.sevice.monitoring.CustomPrometheusPushGatewayManager;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

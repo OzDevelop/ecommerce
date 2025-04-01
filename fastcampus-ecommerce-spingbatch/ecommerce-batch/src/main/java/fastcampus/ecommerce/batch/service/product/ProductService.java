@@ -1,7 +1,8 @@
-package fastcampus.ecommerce.batch.sevice.product;
+package fastcampus.ecommerce.batch.service.product;
 
 import fastcampus.ecommerce.batch.domain.product.Product;
 import java.sql.Timestamp;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -36,5 +37,9 @@ public class ProductService {
                 Timestamp.valueOf(product.getCreatedAt()),
                 Timestamp.valueOf(product.getUpdatedAt())
         );
+    }
+
+    public List<String> getProductIds() {
+        return jdbcTemplate.queryForList("select product_id from products", String.class);
     }
 }

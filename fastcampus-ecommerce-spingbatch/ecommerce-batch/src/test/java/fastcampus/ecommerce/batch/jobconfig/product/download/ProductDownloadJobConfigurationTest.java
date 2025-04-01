@@ -6,14 +6,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import fastcampus.ecommerce.batch.domain.product.Product;
 import fastcampus.ecommerce.batch.domain.product.ProductStatus;
 import fastcampus.ecommerce.batch.jobconfig.BaseBatchIntegrationTest;
-import fastcampus.ecommerce.batch.sevice.product.ProductService;
+import fastcampus.ecommerce.batch.service.product.ProductService;
 import fastcampus.ecommerce.batch.util.DateTimeUtils;
 import fastcampus.ecommerce.batch.util.FileUtils;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
-import org.antlr.v4.runtime.misc.LogManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
@@ -70,6 +69,8 @@ class ProductDownloadJobConfigurationTest extends BaseBatchIntegrationTest {
         return new JobParametersBuilder()
                 .addJobParameter("outputFilePath",
                         new JobParameter<>(outputFile.getPath(), String.class, false))
+                .addJobParameter("gridSize",
+                        new JobParameter<>(2, Integer.class, false))
                 .toJobParameters();
     }
 
