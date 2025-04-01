@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="productUploadJob" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ALTERNATIVE_JRE_PATH" value="temurin-21" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <module name="fastcampus-ecommerce-springbatch.ecommerce-batch.main" />
+    <option name="PROGRAM_PARAMETERS" value="--spring.batch.job.name=productUploadJob inputFilePath=data/random_products.csv,java.lang.String,false gridSize=10,java.lang.Integer,false" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="fastcampus.ecommerce.batch.BatchApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

@@ -36,14 +36,16 @@ import org.springframework.core.task.TaskExecutor;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 
+// 파티셔닝이 제대로 동작하지 않아서, 일단 멀티스레드만 동작.
+
 @Configuration
 public class ProductUploadJobConfiguration {
 
     @Bean
-    public Job productUploadJob(JobRepository jobRepository, Step productUploadPartitionStep, JobExecutionListener listener) {
+    public Job productUploadJob(JobRepository jobRepository, Step productUploadStep, JobExecutionListener listener) {
         return new JobBuilder("productUploadJob", jobRepository)
                 .listener(listener) // job이 완료되었을 때 실행할 리스너(모니터링용)
-                .start(productUploadPartitionStep)
+                .start(productUploadStep)
                 .build();
     }
 
@@ -101,35 +103,35 @@ public class ProductUploadJobConfiguration {
      * 이를 통해 ThreadSafe하게 값을 읽어올 수 있지만,
      * 스레드 동작에 락이 걸리는 것이기 때문에 FlatFileItemReader보다는 속도가 느림.
      */
-//    @Bean
-//    @StepScope
-//    public FlatFileItemReader<ProductUploadCsvRow> productReader(@Value("#{jobParameters['inputFilePath']}") String path
-//    ) {
-//        return new FlatFileItemReaderBuilder<ProductUploadCsvRow>()
-//                .name("productReader")
-//                .resource(new FileSystemResource(path))
-//                .delimited()
-//                .names(ReflectionUtils.getFieldNames(ProductUploadCsvRow.class).toArray(String[]::new))
-//                .targetType(ProductUploadCsvRow.class)
-//                .linesToSkip(1)
-//                .build();
-//    }
-
     @Bean
     @StepScope
-    public SynchronizedItemStreamReader<ProductUploadCsvRow> productReader(
-            @Value("#{stepExecutionContext['file']}") File file) {
-        FlatFileItemReader<ProductUploadCsvRow> fileItemReader = new FlatFileItemReaderBuilder<ProductUploadCsvRow>().name(
-                        "productReader")
-                .resource(new FileSystemResource(file))
+    public FlatFileItemReader<ProductUploadCsvRow> productReader(@Value("#{jobParameters['inputFilePath']}") String path
+    ) {
+        return new FlatFileItemReaderBuilder<ProductUploadCsvRow>()
+                .name("productReader")
+                .resource(new FileSystemResource(path))
                 .delimited()
                 .names(ReflectionUtils.getFieldNames(ProductUploadCsvRow.class).toArray(String[]::new))
                 .targetType(ProductUploadCsvRow.class)
-                //                .linesToSkip(1)
-                .build();
-        return new SynchronizedItemStreamReaderBuilder<ProductUploadCsvRow>().delegate(fileItemReader)
+                .linesToSkip(1)
                 .build();
     }
+
+//    @Bean
+//    @StepScope
+//    public SynchronizedItemStreamReader<ProductUploadCsvRow> productReader(
+//            @Value("#{stepExecutionContext['file']}") File file) {
+//        FlatFileItemReader<ProductUploadCsvRow> fileItemReader = new FlatFileItemReaderBuilder<ProductUploadCsvRow>().name(
+//                        "productReader")
+//                .resource(new FileSystemResource(file))
+//                .delimited()
+//                .names(ReflectionUtils.getFieldNames(ProductUploadCsvRow.class).toArray(String[]::new))
+//                .targetType(ProductUploadCsvRow.class)
+//                //                .linesToSkip(1)
+//                .build();
+//        return new SynchronizedItemStreamReaderBuilder<ProductUploadCsvRow>().delegate(fileItemReader)
+//                .build();
+//    }
 
 
     @Bean
