@@ -32,3 +32,4 @@ public class ProductUploadCsvRow {
                 productStatus, brand, manufacturer, salesPrice, stockQuantity);
     }
 }
+

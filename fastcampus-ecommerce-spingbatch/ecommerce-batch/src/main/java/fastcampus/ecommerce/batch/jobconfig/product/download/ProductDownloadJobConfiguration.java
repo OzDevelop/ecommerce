@@ -95,7 +95,8 @@ public class ProductDownloadJobConfiguration {
     @Bean
     @StepScope
     public FlatFileItemWriter<ProductDownloadCsvRow> productCsvWriter(
-            @Value("#{jobParameters['outputFilePath']}") String path) {
+            @Value("#{jobParameters['outputFilePath']}") String path
+    ) {
         List<String> columns = ReflectionUtils.getFieldNames(ProductDownloadCsvRow.class);
         return new FlatFileItemWriterBuilder<ProductDownloadCsvRow>()
                 .name("productCsvWriter")
@@ -105,5 +106,4 @@ public class ProductDownloadJobConfiguration {
                 .headerCallback(writer -> writer.write(String.join(",", columns)))
                 .build();
     }
-
 }

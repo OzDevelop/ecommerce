@@ -48,9 +48,9 @@ public class ProductUploadJobConfiguration {
     }
 
     @Bean
-    public Step productUploadPartitionStep(JobRepository jobRepository, Step productionUploadStep, SplitFilePartitioner splitFilePartitioner, PartitionHandler filePartitionHandler) {
+    public Step productUploadPartitionStep(JobRepository jobRepository, Step productUploadStep, SplitFilePartitioner splitFilePartitioner, PartitionHandler filePartitionHandler) {
         return new StepBuilder("productUploadPartitionStep", jobRepository)
-                .partitioner(productionUploadStep.getName(), splitFilePartitioner)
+                .partitioner(productUploadStep.getName(), splitFilePartitioner)
                 .partitionHandler(filePartitionHandler)
                 .allowStartIfComplete(true)
                 .build();
@@ -68,16 +68,13 @@ public class ProductUploadJobConfiguration {
 
     @Bean
     @JobScope
-    // 파티션 핸들러
-    public TaskExecutorPartitionHandler filePartitionHandler(TaskExecutor taskExecutor, Step productionUploadStep, @Value("#{jobParameters['gridSize']}") int gridSize) {
+    public TaskExecutorPartitionHandler filePartitionHandler(TaskExecutor taskExecutor, Step productUploadStep, @Value("#{jobParameters['gridSize']}") int gridSize) {
         TaskExecutorPartitionHandler handler = new TaskExecutorPartitionHandler();
         handler.setTaskExecutor(taskExecutor);
-        handler.setStep(productionUploadStep);
+        handler.setStep(productUploadStep);
         handler.setGridSize(gridSize);
-
         return handler;
     }
-
 
     @Bean
     public Step productUploadStep(JobRepository jobRepository,
@@ -117,19 +114,20 @@ public class ProductUploadJobConfiguration {
 //                .linesToSkip(1)
 //                .build();
 //    }
+
     @Bean
     @StepScope
-    public SynchronizedItemStreamReader<ProductUploadCsvRow> productReader(@Value("#{stepExcutionContext['file']}") File file) {
-        FlatFileItemReader<ProductUploadCsvRow> productReader = new FlatFileItemReaderBuilder<ProductUploadCsvRow>()
-                .name("productReader")
+    public SynchronizedItemStreamReader<ProductUploadCsvRow> productReader(
+            @Value("#{stepExecutionContext['file']}") File file) {
+        FlatFileItemReader<ProductUploadCsvRow> fileItemReader = new FlatFileItemReaderBuilder<ProductUploadCsvRow>().name(
+                        "productReader")
                 .resource(new FileSystemResource(file))
                 .delimited()
                 .names(ReflectionUtils.getFieldNames(ProductUploadCsvRow.class).toArray(String[]::new))
                 .targetType(ProductUploadCsvRow.class)
-//                .linesToSkip(1)
+                //                .linesToSkip(1)
                 .build();
-        return new SynchronizedItemStreamReaderBuilder<ProductUploadCsvRow>()
-                .delegate(productReader)
+        return new SynchronizedItemStreamReaderBuilder<ProductUploadCsvRow>().delegate(fileItemReader)
                 .build();
     }
 
