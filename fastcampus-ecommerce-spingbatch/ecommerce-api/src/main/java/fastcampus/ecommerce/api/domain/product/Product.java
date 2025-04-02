@@ -10,13 +10,14 @@ import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
  * JPA 연동 예정
  */
 
-@Data
+@Getter
 @Entity
 @Table(name = "products")
 @NoArgsConstructor
