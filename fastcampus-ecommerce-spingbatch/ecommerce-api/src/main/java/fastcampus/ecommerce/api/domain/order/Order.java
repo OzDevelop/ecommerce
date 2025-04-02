@@ -24,7 +24,7 @@ import lombok.Setter;
 
 @Getter
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Order {
@@ -62,12 +62,6 @@ public class Order {
         payment = Payment.createPayment(paymentMethod, calculateTotalAmount(), this);
     }
 
-    private int calculateTotalAmount() {
-        return orderItems.stream()
-                .mapToInt(item -> item.getUnitPrice() * item.getQuantity())
-                .sum();
-    }
-
     public void completePayment(boolean isSuccess) {
         if (orderStatus != OrderStatus.PENDING_PAYMENT) {
             throw new IllegalOrderStateException("결제를 처리할 수 없는 상태의 주문입니다.");
@@ -81,14 +75,8 @@ public class Order {
         orderStatus = OrderStatus.PROCESSING;
     }
 
-
-
     public PaymentStatus getPaymentStatus() {
         return payment.getPaymentStatus();
-    }
-
-    public boolean isPaymentSuccess() {
-        return payment.isSuccess();
     }
 
     public void complete() {
@@ -109,4 +97,35 @@ public class Order {
         payment.cancel();
     }
 
+    public Long countProducts() {
+        return (long) orderItems.size();
+    }
+
+    public int calculateTotalAmount() {
+        return orderItems.stream()
+                .mapToInt(item -> item.getUnitPrice() * item.getQuantity())
+                .sum();
+    }
+
+    public boolean isPaymentSuccess() {
+        return payment.isSuccess();
+    }
+
+    public PaymentMethod getPaymentMethod() {
+        return payment.getPaymentMethod();
+    }
+
+    public Long calculateTotalItemQuantity() {
+        return orderItems.stream()
+                .mapToLong(OrderItem::getQuantity)
+                .sum();
+    }
+
+    public Long getPaymentId() {
+        return payment.getPaymentId();
+    }
+
+    public Timestamp getPaymentDate() {
+        return payment.getPaymentDate();
+    }
 }

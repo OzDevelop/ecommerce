@@ -1,0 +1,14 @@
+### 주문 생성
+POST http://localhost:8080/v1/orders
+Content-Type: application/json
+
+{
+  "customerId": 1,
+  "orderItems": [
+    {
+      "productId": "1743476533111_e0e7e301-195e-414c-bb2a-3244594aabfb",
+      "quantity": 2
+    }
+  ],
+  "paymentMethod": "CREDIT_CARD"
+}
