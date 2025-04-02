@@ -3,12 +3,30 @@ POST http://localhost:8080/v1/orders
 Content-Type: application/json
 
 {
-  "customerId": 1,
+  "customerId": 2,
   "orderItems": [
     {
       "productId": "1743476533111_e0e7e301-195e-414c-bb2a-3244594aabfb",
-      "quantity": 2
+      "quantity": 5
     }
   ],
   "paymentMethod": "CREDIT_CARD"
 }
+
+### 결제 처리 성공
+POST http://localhost:8080/v1/orders/1/payment
+Content-Type: application/json
+
+{
+  "success": true
+}
+
+### 결제 처리 실패
+POST http://localhost:8080/v1/orders/2/payment
+Content-Type: application/json
+
+{
+  "success": false
+}
+
+
