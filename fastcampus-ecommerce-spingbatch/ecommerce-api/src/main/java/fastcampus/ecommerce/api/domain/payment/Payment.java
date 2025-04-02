@@ -16,7 +16,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.aspectj.weaver.ast.Or;
 
 @Getter
 @Entity
@@ -48,7 +47,7 @@ public class Payment {
     }
 
 
-    public void compelete() {
+    public void complete() {
         if(paymentStatus != PaymentStatus.PENDING) {
             throw new IllegalPaymentStateException("결제 대기중에만 완료할 수 있습니다.");
         }

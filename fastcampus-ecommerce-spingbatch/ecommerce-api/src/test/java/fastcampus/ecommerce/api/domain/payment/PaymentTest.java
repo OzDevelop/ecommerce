@@ -1,11 +1,8 @@
 package fastcampus.ecommerce.api.domain.payment;
 
-import static fastcampus.ecommerce.api.domain.payment.Payment.createPayment;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
-import fastcampus.ecommerce.api.domain.order.Order;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,16 +25,16 @@ class PaymentTest {
 
     @Test
     void testPaymentComplete() {
-        payment.compelete();
+        payment.complete();
 
         assertThat(payment.getPaymentStatus()).isEqualTo(PaymentStatus.COMPLETED);
     }
 
     @Test
     void testPaymentCompleteException() {
-        payment.compelete();
+        payment.complete();
 
-        assertThatThrownBy(() -> payment.compelete())
+        assertThatThrownBy(() -> payment.complete())
                 .isInstanceOf(IllegalPaymentStateException.class);
     }
 
@@ -51,7 +48,7 @@ class PaymentTest {
 
     @Test
     void testPaymentFailException() {
-        payment.compelete();
+        payment.complete();
 
         assertThatThrownBy(payment::fail)
                 .isInstanceOf(IllegalPaymentStateException.class);
@@ -59,7 +56,7 @@ class PaymentTest {
 
     @Test
     void testPaymentCancelAfterComplete() {
-        payment.compelete();
+        payment.complete();
         payment.cancel();
 
         assertThat(payment.getPaymentStatus()).isEqualTo(PaymentStatus.REFUNDED);
@@ -82,7 +79,7 @@ class PaymentTest {
 
     @Test
     void testPaymentCancelAfterRefund() {
-        payment.compelete();
+        payment.complete();
         payment.cancel();
 
         assertThatThrownBy(payment::cancel)
