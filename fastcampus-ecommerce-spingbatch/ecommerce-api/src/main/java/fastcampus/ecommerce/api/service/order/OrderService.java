@@ -6,10 +6,10 @@ import fastcampus.ecommerce.api.domain.order.OrderRepository;
 import fastcampus.ecommerce.api.domain.payment.PaymentMethod;
 import fastcampus.ecommerce.api.service.product.ProductResult;
 import fastcampus.ecommerce.api.service.product.ProductService;
+import fastcampus.ecommerce.api.service.transaction.TransactionService;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 @Service

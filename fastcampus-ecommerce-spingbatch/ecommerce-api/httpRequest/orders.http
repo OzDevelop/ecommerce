@@ -3,18 +3,18 @@ POST http://localhost:8080/v1/orders
 Content-Type: application/json
 
 {
-  "customerId": 4,
+  "customerId": 5,
   "orderItems": [
     {
       "productId": "1743476533111_e0e7e301-195e-414c-bb2a-3244594aabfb",
-      "quantity": 4
+      "quantity": 5
     }
   ],
   "paymentMethod": "CREDIT_CARD"
 }
 
 ### 결제 처리 성공
-POST http://localhost:8080/v1/orders/4/payment
+POST http://localhost:8080/v1/orders/5/payment
 Content-Type: application/json
 
 {
@@ -30,7 +30,7 @@ Content-Type: application/json
 }
 
 ### 주문 완료
-POST http://localhost:8080/v1/orders/3/complete
+POST http://localhost:8080/v1/orders/5/complete
 Content-Type: application/json
 
 ### 주문 취소
