@@ -46,18 +46,18 @@ public class TransactionReportJobConfiguration {
     @Bean
     public Step transactionAccStep(JobRepository jobRepository,
                                    PlatformTransactionManager transactionManager,
-                                   StepExecutionListener listener,
+                                   StepExecutionListener stepExecutionListener,
                                    ItemReader<TransactionLog> logReader,
-                                   ItemWriter<TransactionLog> logAccumulator
-    ) {
+                                   ItemWriter<TransactionLog> logAccumulator) {
         return new StepBuilder("transactionAccStep", jobRepository)
-                .<TransactionLog, TransactionLog>chunk(10, transactionManager)
+                .<TransactionLog, TransactionLog>chunk(1000, transactionManager)
                 .reader(logReader)
                 .writer(logAccumulator)
                 .allowStartIfComplete(true)
-                .listener(listener)
+                .listener(stepExecutionListener)
                 .build();
     }
+
 
     @Bean
     @StepScope
