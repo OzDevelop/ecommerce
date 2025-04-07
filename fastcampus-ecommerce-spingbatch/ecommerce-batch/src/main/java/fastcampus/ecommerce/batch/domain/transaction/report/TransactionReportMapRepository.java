@@ -1,5 +1,6 @@
 package fastcampus.ecommerce.batch.domain.transaction.report;
 
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import org.springframework.stereotype.Repository;
@@ -23,5 +24,10 @@ public class TransactionReportMapRepository {
 
     private static String getKey(TransactionReport report) {
         return report.getTransactionDate() + "|" + report.getTransactionType();
+    }
+
+    public List<TransactionReport> getTransactionReports() {
+        return reportMap.values().stream()
+                .toList();
     }
 }
