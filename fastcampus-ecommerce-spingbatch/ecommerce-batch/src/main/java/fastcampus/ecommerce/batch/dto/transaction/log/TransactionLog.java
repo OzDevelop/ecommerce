@@ -1,4 +1,4 @@
-package fastcampus.ecommerce.batch.dto.transaction;
+package fastcampus.ecommerce.batch.dto.transaction.log;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AccessLevel;
@@ -40,6 +40,16 @@ public class TransactionLog {
     private String thread;
     private String message;
     private TransactionLogMdc mdc;
+
+    public static TransactionLog of(
+            String timestamp,
+            String level,
+            String logger,
+            String thread,
+            String message,
+            TransactionLogMdc mdc) {
+        return new TransactionLog(timestamp, level, logger, thread, message, mdc);
+    }
 
     public String getTransactionType() {
         return mdc.getTransactionType();

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/ecommerce.iml" filepath="$PROJECT_DIR$/.idea/ecommerce.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ecommerce-api/fastcampus-ecommerce-springbatch.ecommerce-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ecommerce-api/fastcampus-ecommerce-springbatch.ecommerce-api.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ecommerce-api/fastcampus-ecommerce-springbatch.ecommerce-api.test.iml" filepath="$PROJECT_DIR$/.idea/modules/ecommerce-api/fastcampus-ecommerce-springbatch.ecommerce-api.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ecommerce-batch/fastcampus-ecommerce-springbatch.ecommerce-batch.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ecommerce-batch/fastcampus-ecommerce-springbatch.ecommerce-batch.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ecommerce-batch/fastcampus-ecommerce-springbatch.ecommerce-batch.test.iml" filepath="$PROJECT_DIR$/.idea/modules/ecommerce-batch/fastcampus-ecommerce-springbatch.ecommerce-batch.test.iml" />
+    </modules>
+  </component>
+</project>

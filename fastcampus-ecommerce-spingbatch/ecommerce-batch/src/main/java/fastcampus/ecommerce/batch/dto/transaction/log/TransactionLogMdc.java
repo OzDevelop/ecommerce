@@ -1,4 +1,4 @@
-package fastcampus.ecommerce.batch.dto.transaction;
+package fastcampus.ecommerce.batch.dto.transaction.log;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AccessLevel;
@@ -26,5 +26,26 @@ public class TransactionLogMdc {
             return "0";
         }
         return totalAmount;
+    }
+
+    public static TransactionLogMdc of(
+            String transactionType,
+            String transactionStatus,
+            String orderId,
+            String customerId,
+            String totalAmount,
+            String paymentMethod,
+            String productCount,
+            String totalItemQuantity) {
+        return new TransactionLogMdc(
+                transactionType,
+                transactionStatus,
+                orderId,
+                customerId,
+                totalAmount,
+                paymentMethod,
+                productCount,
+                totalItemQuantity
+        );
     }
 }
