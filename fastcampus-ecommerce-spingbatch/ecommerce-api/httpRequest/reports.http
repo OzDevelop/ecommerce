@@ -1,3 +1,8 @@
 ### 일별 거래 보고서 조회
 GET http://localhost:8080/v1/transactions/reports?dt=2025-04-03
 Content-Type: application/json
+
+### 일별 상품 현황 보고서
+GET http://localhost:8080/v1/products/reports?
+    dt=2025-04-08
+Content-Type: application/json
